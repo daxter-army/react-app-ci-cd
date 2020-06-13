@@ -1,0 +1,13 @@
+language: generic
+# For using docker, we need to have root user permission
+sudo: required
+# Tell Travis, we need docker to install
+services:
+    - docker
+
+# Some steps to run, before test suite runs
+before_install:
+    - docker build -t mehulsinghteya/react-ci-cd -f Dockerfile.dev .
+
+script:
+    - docker run -e CI=true mehulsinghteya/react-ci-cd npm run test
